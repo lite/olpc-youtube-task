@@ -1,0 +1,26 @@
+<section id="add">
+  <form action="/" method="post">
+    <textarea name="title" placeholder="Title of task&hellip;"></textarea>
+    <textarea name="url" placeholder="Url of task&hellip;"></textarea>
+    <input type="submit" value="Take Task!">
+  </form>
+</section>
+
+<% # display tasks %>
+<% @tasks.each do |task| %>
+  <article <%= 'class="complete"' if task.complete %>>
+    <p>
+      <%= task.title %>
+      <span><a href="/<%= task.id %>">[edit]</a></span>
+    </p>
+    <p class="meta">Url: <%= task.url %></p>
+    <p class="links">
+      <a href="/<%= task.id %>/complete">&#8623;</a>
+    </p>
+    
+    <p class="meta">Worker: <%= task.worker %></p>
+    <p class="links">
+      <a href="/<%= task.id %>/take">&#8623;</a>      
+    </p>
+  </article>
+<% end %>

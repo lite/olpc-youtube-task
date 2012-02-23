@@ -1,33 +1,67 @@
 require 'rubygems'
 require 'sinatra'
-require 'data_mapp'
+require 'data_mapper'
 
-# "postgres://olpc:olpc@hostname/database"
 # need install dm-sqlite-adapter
-DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite3://olpc-task.db')
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/olpc-task.db")
 
 class Task
     include DataMapper::Resource
     property :id, Serial
 	  property :title, String
     property :url, String
-    property :status, Integer
+    property :complete, Boolean, :required => true, :default => false 
     property :worker, String
 end
 
 # automatically create the post table
-Score.auto_migrate! unless Score.storage_exists?
+Task.auto_migrate! unless Task.storage_exists?
 
 configure :development do 
   use Rack::Reloader 
 end
 
-get '/show/:id' do 
+get '/' do 
+  @tasks = Task.all :order => :id.desc  
+  @title = 'All Tasks'
+  erb :home
+end
+
+post '/' do
+  t = Task.new
+  t.title = params[:title]
+  t.url = params[:url]
+  t.save
+  redirect '/'
+end
+
+"""
+get '/delete/:id' do
+  item = Task.find :id=> params[:id]
+  item.delete
+  redirect '/'
+end
+
+get '/edit/:id' do 
   @items = Task.find :id => params[:id]
-  erb :index
+  @title = 'Edit Task'
+  erb :edit
+end
+
+post '/update/:id' do 
+  request.body.rewind
+  puts request.body.read
+  item = Task.find :id=> params[:id]
+  item.title = params[:title]
+  item.url = params[:url]
+  item.status = params[:status].to_i
+  item.worker = params[:worker]
+  item.save
+  redirect '/'
 end
 
 get '/new' do 
+  @title = 'New Task'
   erb :new
 end
 
@@ -37,8 +71,9 @@ post '/create' do
   item = Task.new
   item.title = params[:title]
   item.url = params[:url]
-  item.status = params[:status].to_i
+  item.status = 0
   item.worker = params[:worker]
   item.save
-  redirect "/show/#{item.id}"
+  redirect '/'
 end
+"""
