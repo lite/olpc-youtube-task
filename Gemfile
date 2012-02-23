@@ -1,10 +1,18 @@
-source "http://rubygems.org"
+source :gemcutter
+#source "http://ruby.taobao.com"
 
 gem 'rake'
 gem 'sinatra'
 gem 'datamapper'
+gem 'heroku'
 
-group :development do
+group :production do
+  gem "pg"
+  gem "dm-postgres-adapter"
+end
+
+group :development, :test do
+  gem "sqlite3"
   gem 'dm-sqlite-adapter'
 end
 
@@ -14,7 +22,4 @@ group :test do
   gem 'autotest'
 end
 
-group :production do
-  gem "td"
-end
 

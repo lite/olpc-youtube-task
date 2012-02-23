@@ -5,9 +5,14 @@
 
 # shell 
 
-    ruby yebob.rb 
+    ruby olpc-task.rb 
     rake spec
 
+# heroku
+
+    heroku create olpc-task
+    heroku addons:add shared-database:5mb
+    git push heroku master
+
 # ci
-    github
     travis-ci
