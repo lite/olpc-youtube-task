@@ -2,8 +2,8 @@ require 'rubygems'
 require 'sinatra'
 require 'data_mapper'
 
-# need install dm-sqlite-adapter
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/olpc-tasks.db")
+#DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/olpc-tasks.db")
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://postgres:postgres@localhost/olpc-tasks")
 
 class Task
     include DataMapper::Resource

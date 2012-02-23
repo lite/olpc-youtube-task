@@ -8,7 +8,9 @@
 
 <% # display tasks %>
 <% @tasks.each do |task| %>
-  <article <%= 'class="complete"' if task.complete %>>
+  <% task_status ="running" if !task.volunteer.empty? %>
+  <% task_status ="complete" if task.complete %>
+  <article class="<%= task_status %>">
     <p>
       <h2><%= task.title %> 
       <span><a href="/<%= task.id %>">[edit]</a></span>

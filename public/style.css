@@ -96,13 +96,16 @@ article:nth-child(even) {
 }
 
 article.complete {
-	background: #fedae3;
+	background: #99CC32;
+}
+
+article.running {
+	background: #FF7F00;
 }
 
 article h2 {
 	font-size: 16px;
 	font-style: italic;
-	color: #999;
 }
 
 article span {
