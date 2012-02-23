@@ -10,13 +10,18 @@
 <% @tasks.each do |task| %>
   <article <%= 'class="complete"' if task.complete %>>
     <p>
-      <%= task.title %>
+      <h2><%= task.title %> 
       <span><a href="/<%= task.id %>">[edit]</a></span>
+      </h2>
     </p>
-    <p class="meta">Url: <%= task.url %></p>
-    <p class="meta">Volunteer: <%= task.volunteer %></p>
+    <p class="meta">
+      volunteer: <%= task.volunteer %></span>
+    </p>  
+    <p class="meta">
+      <a href="<%= task.url %>"><%= task.url %></a>
+    </p>
     <p class="links">
-      <a href="/<%= task.id %>/complete">&#8623;</a>
+        <a href="/<%= task.id %>/complete">&#8623;</a>
     </p>
   </article>
 <% end %>

@@ -24,6 +24,7 @@ header h2 {
 	color: #999;
 }
 
+
 #main {
 	margin: 0 0 20px;
 }
@@ -96,6 +97,12 @@ article:nth-child(even) {
 
 article.complete {
 	background: #fedae3;
+}
+
+article h2 {
+	font-size: 16px;
+	font-style: italic;
+	color: #999;
 }
 
 article span {

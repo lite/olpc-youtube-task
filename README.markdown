@@ -10,7 +10,7 @@
 
 # heroku
 
-    heroku create olpc-task
+    heroku create olpc-tasks
     heroku addons:add shared-database:5mb
     git push heroku master
 
