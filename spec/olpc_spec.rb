@@ -9,7 +9,7 @@ describe 'Home' do
     last_response.body.should include('All tasks')
 	end
 
-	it "should load the created task" do
+	it "should return to home with the created task" do
     title = "title-#{Time.now}"
     url = "http://www.google.com/#{Time.now}"
 		post '/create', params = { :title => title, :url => url}
@@ -33,7 +33,7 @@ describe 'Edit task' do
     last_response.body.should include('Edit task')
 	end
 
-  it "should redirect to home with the updated task" do
+  it "should return to home with the updated task" do
 		title = "title-#{Time.now}"
     url = "http://www.google.com/#{Time.now}"
     volunteer = "volunteer-#{Time.now}"
@@ -58,9 +58,8 @@ describe 'Delete task' do
     last_response.body.should include('Confirm deletion of task')
 	end
 
-  it "should redirect to home without the deleted task" do
-		title = "title-#{Time.now}"
-		post "/#{@task.id}/destory"
+  it "should return to home without the deleted task" do
+		post "/#{@task.id}/destroy"
     last_response.should be_redirect; follow_redirect!
     last_request.url.should include("/") 
 	end
@@ -74,7 +73,7 @@ describe 'Complete task' do
     @task = Task.first
   end
 
-	it "should let user confirm the delete operation" do
+	it "should return to home with the completed task" do
 		get "/#{@task.id}/complete"
     last_response.should be_redirect; follow_redirect!
     last_request.url.should include("/")     
