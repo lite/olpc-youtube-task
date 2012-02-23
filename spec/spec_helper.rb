@@ -6,3 +6,4 @@ set :environment, :test
 def app
 	Sinatra::Application
 end
+

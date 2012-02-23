@@ -11,6 +11,7 @@ end
 group :test do
   gem 'rack-test'
   gem 'rspec'
+  gem 'autotest'
 end
 
 group :production do

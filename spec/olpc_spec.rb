@@ -1,11 +1,17 @@
 require_relative 'spec_helper.rb'
 
-root_url = '127.0.0.1:4567' 
+describe 'Reverse Service' do
+	include Rack::Test::Methods	
 
-describe 'Index' do
-  include Rack::Test::Methods
+	it "should load the home page" do
+		get '/'
+		last_response.should be_ok
+	end
 
-  it "should return index" do 
-  end
-
+  """
+	it "should reverse posted values as well" do
+		post '/create', params = { :str => 'Jeff'}
+		last_response.body.should be_ok
+	end
+  """
 end
