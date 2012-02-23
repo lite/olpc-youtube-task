@@ -5,7 +5,7 @@
 
 # shell 
 
-    ruby olpc-task.rb 
+    ruby olpc-tasks.rb 
     rake spec
 
 # heroku

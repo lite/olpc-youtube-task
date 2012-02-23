@@ -1,2 +1,2 @@
-require './olpc-task.rb'
+require './olpc-tasks.rb'
 run Sinatra::Application
