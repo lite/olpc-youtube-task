@@ -1,8 +1,8 @@
 <section id="add">
-  <form action="/" method="post">
+  <form action="/create" method="post">
     <textarea name="title" placeholder="Title of task&hellip;"></textarea>
     <textarea name="url" placeholder="Url of task&hellip;"></textarea>
-    <input type="submit" value="Take Task!">
+    <input type="submit" value="Task it!">
   </form>
 </section>
 
@@ -14,13 +14,9 @@
       <span><a href="/<%= task.id %>">[edit]</a></span>
     </p>
     <p class="meta">Url: <%= task.url %></p>
+    <p class="meta">Volunteer: <%= task.volunteer %></p>
     <p class="links">
       <a href="/<%= task.id %>/complete">&#8623;</a>
-    </p>
-    
-    <p class="meta">Worker: <%= task.worker %></p>
-    <p class="links">
-      <a href="/<%= task.id %>/take">&#8623;</a>      
     </p>
   </article>
 <% end %>

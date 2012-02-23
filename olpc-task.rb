@@ -8,10 +8,10 @@ DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/olpc-tas
 class Task
     include DataMapper::Resource
     property :id, Serial
-	  property :title, String
-    property :url, String
+	  property :title, String, :required => true
+    property :url, String, :required => true
     property :complete, Boolean, :required => true, :default => false 
-    property :worker, String
+    property :volunteer, String, :default => ""
 end
 
 # automatically create the post table
@@ -23,11 +23,11 @@ end
 
 get '/' do 
   @tasks = Task.all :order => :id.desc  
-  @title = 'All Tasks'
+  @title = 'All tasks'
   erb :home
 end
 
-post '/' do
+post '/create' do
   t = Task.new
   t.title = params[:title]
   t.url = params[:url]
@@ -35,45 +35,36 @@ post '/' do
   redirect '/'
 end
 
-"""
-get '/delete/:id' do
-  item = Task.find :id=> params[:id]
-  item.delete
-  redirect '/'
-end
-
-get '/edit/:id' do 
-  @items = Task.find :id => params[:id]
-  @title = 'Edit Task'
+get '/:id' do
+  @task = Task.get params[:id]
+  @title = "Edit task ##{params[:id]}"
   erb :edit
 end
 
-post '/update/:id' do 
-  request.body.rewind
-  puts request.body.read
-  item = Task.find :id=> params[:id]
-  item.title = params[:title]
-  item.url = params[:url]
-  item.status = params[:status].to_i
-  item.worker = params[:worker]
-  item.save
-  redirect '/'
+post '/:id/update' do
+  t = Task.get params[:id]
+  t.title = params[:title]
+  t.url = params[:url]
+  t.volunteer = params[:volunteer] 
+  t.save
+  redirect "/"
 end
 
-get '/new' do 
-  @title = 'New Task'
-  erb :new
+get '/:id/delete' do
+  @task = Task.get params[:id]
+  @title = "Confirm deletion of task ##{params[:id]}"
+  erb :delete
 end
 
-post '/create' do 
-  request.body.rewind  # in case someone already read it
-  puts request.body.read
-  item = Task.new
-  item.title = params[:title]
-  item.url = params[:url]
-  item.status = 0
-  item.worker = params[:worker]
-  item.save
+post '/:id/destroy' do
+  t = Task.get params[:id]  
+  t.destroy  
+  redirect '/'  
+end
+
+get '/:id/complete' do
+  t = Task.get params[:id]
+  t.complete = t.complete ? 0 : 1 # flip it
+  t.save
   redirect '/'
 end
-"""

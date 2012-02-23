@@ -1,0 +1,14 @@
+<% if @task %>
+  <form action="/<%= @task.id %>/update" method="post" id="edit">
+    <textarea name="volunteer" placeholder="Volunteer of task&hellip;"><%= @task.volunteer %></textarea>
+    <p class="links">
+      <a href="/<%= @task.id %>/complete">&#8623;</a>
+    </p>
+    <textarea name="title" placeholder="Title of task&hellip;"><%= @task.title %></textarea>
+    <textarea name="url" placeholder="Url of task&hellip;"><%= @task.url %></textarea>
+    <input type="submit" value="save">
+  </form>
+  <p><a href="/<%= @task.id %>/delete">Delete</a></p>
+<% else %>
+  <p>Task not found.</p>
+<% end %>
